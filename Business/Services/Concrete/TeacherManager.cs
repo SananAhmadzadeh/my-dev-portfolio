@@ -36,7 +36,7 @@ namespace Business.Services.Concrete
                 return new ErrorResult(userResult.Errors.First().Description);
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            string baseUrl = "https://my-dev-portfolio-qklz.onrender.com";
+            string baseUrl = "https://my-dev-portfolio-bm7d.onrender.com";
             string resetUrl = $"{baseUrl}/set-password?userId={user.Id}&token={token}";
 
             await _emailService.SendEmailAsync(user.Email,

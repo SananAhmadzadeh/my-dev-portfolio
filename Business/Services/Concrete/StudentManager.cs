@@ -49,19 +49,21 @@ public class StudentManager : IStudentService
             return new ErrorResult(userResult.Errors.First().Description);
 
         var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-        var resetUrl =
-            $"https://frontend.skillupit.az/set-password?userId={user.Id}&token={token}";
+        string baseUrl = "https://my-dev-portfolio-bm7d.onrender.com";
+        string resetUrl = $"{baseUrl}/set-password?userId={user.Id}&token={token}";
 
-        await _emailService.SendEmailAsync(
-            user.Email,
-            "Şifrənizi təyin edin",
-            $@"
-        Salam {user.FullName},<br/><br/>
-        Siz sistemə tələbə kimi əlavə edildiniz.<br/>
-        Şifrənizi təyin etmək üçün link:<br/><br/>
-        <a href='{resetUrl}'>Şifrəni təyin et</a><br/><br/>
-        SkillUpIT Team
-        ");
+        await _emailService.SendEmailAsync(user.Email,
+       "Şifrənizi təyin edin",
+$@"Salam {user.FullName},
+
+Siz sistemə tələbə kimi əlavə edildiniz.
+Şifrənizi təyin etmək üçün aşağıdakı linkə keçin:
+
+{resetUrl}
+
+Uğurlar!
+Education Team"
+);
         if (!await _roleManager.RoleExistsAsync("Student"))
             await _roleManager.CreateAsync(new IdentityRole("Student"));
 
