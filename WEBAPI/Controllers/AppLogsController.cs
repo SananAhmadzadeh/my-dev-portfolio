@@ -1,4 +1,5 @@
 ﻿using Business.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WEBAPI.Controllers
@@ -16,6 +17,7 @@ namespace WEBAPI.Controllers
             _appLogService = appLogService;
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpGet]
         public async Task<IActionResult> GetAllAppLogs()
         {
