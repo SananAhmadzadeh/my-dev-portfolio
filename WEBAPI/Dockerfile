@@ -31,4 +31,9 @@ RUN dotnet publish "./WEBAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+USER root
+RUN mkdir -p /app/wwwroot/PDF && chmod -R 777 /app/wwwroot/PDF
+USER $APP_UID
+
 ENTRYPOINT ["dotnet", "WEBAPI.dll"]
