@@ -14,7 +14,9 @@ using WebAPI.Hubs;
 
 var test = Path.Combine(Directory.GetCurrentDirectory(), "..", ".env");
 DotNetEnv.Env.Load(test);
+
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddValidatorsFromAssemblyContaining<UserMessageDtoValidator>();
 builder.Services.AddDataAccessConfiguration(builder.Configuration);
 builder.Services.Configure<MailSettings>(
