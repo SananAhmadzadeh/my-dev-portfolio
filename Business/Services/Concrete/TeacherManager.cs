@@ -36,20 +36,22 @@ namespace Business.Services.Concrete
                 return new ErrorResult(userResult.Errors.First().Description);
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var resetUrl = $"https://frontend.skillupit.az/set-password?userId={user.Id}&token={token}";
+            string baseUrl = "https://my-dev-portfolio-qklz.onrender.com";
+            string resetUrl = $"{baseUrl}/set-password?userId={user.Id}&token={token}";
 
-            await _emailService.SendEmailAsync(
-                user.Email,
-                "Şifrənizi təyin edin",
-                $@"
-        Salam {user.FullName},
-        Siz sistemə müəllim kimi əlavə edildiniz.
-        Şifrənizi təyin etmək üçün aşağıdakı linkə keçin:
-        <a href='{resetUrl}'>Şifrəni təyin et</a>
-        Uğurlar!
-        SkillUpIT Team
-        "
-            );
+            await _emailService.SendEmailAsync(user.Email,
+           "Şifrənizi təyin edin",
+$@"Salam {user.FullName},
+
+Siz sistemə müəllim kimi əlavə edildiniz.
+Şifrənizi təyin etmək üçün aşağıdakı linkə keçin:
+
+{resetUrl}
+
+Uğurlar!
+Education Team"
+);
+
 
             if (!await _roleManager.RoleExistsAsync("Teacher"))
                 await _roleManager.CreateAsync(new IdentityRole("Teacher"));
