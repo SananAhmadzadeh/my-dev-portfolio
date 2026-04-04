@@ -1,0 +1,50 @@
+﻿
+################################################################################
+# .NET / Visual Studio
+################################################################################
+
+# Visual Studio
+.vs/
+
+# Ignore environment variable files
+.env
+
+
+.vs/
+bin/
+obj/
+*.ddl
+*.pdb
+*.deps.json
+
+*.bin
+
+*.bin
+
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.csproj.user
+
+# Debug / Release
+[Bb]in/
+[Oo]bj/
+
+# .NET artifacts
+*.dll
+*.pdb
+*.deps.json
+
+# NuGet
+project.nuget.cache
+
+# Environment files
+.env
+
+# OS files
+.DS_Store
+Thumbs.db

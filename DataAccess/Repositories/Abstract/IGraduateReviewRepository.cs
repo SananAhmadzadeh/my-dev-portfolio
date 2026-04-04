@@ -1,0 +1,12 @@
+﻿using Core.DataAccess.Repositories.Abstract;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DataAccess.Repositories.Abstract
+{
+    public interface IGraduateReviewRepository : IBaseRepository<GraduateReview>
+    {
+        Task<List<GraduateReview>> GetAllWithGraduateAsync();
+    }
+}

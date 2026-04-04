@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR Notification Tester</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+</head>
+<body>
+
+    <h2>SignalR Notification Test</h2>
+
+    <button onclick="connect()">Connect</button>
+
+    <ul id="notifications"></ul>
+
+    <script>
+        let connection;
+
+        function connect() {
+
+            const token = prompt("JWT Token daxil et:");
+
+            connection = new signalR.HubConnectionBuilder()
+                .withUrl("https://localhost:44389/notificationHub", {
+                    accessTokenFactory: () => token
+                })
+                .build();
+
+            connection.on("ReceiveNotification", function (data) {
+                const li = document.createElement("li");
+                li.textContent = data.title + " - " + data.message;
+                document.getElementById("notifications").appendChild(li);
+            });
+
+            connection.start()
+                .then(() => alert("Connected!"))
+                .catch(err => console.error(err));
+        }
+    </script>
+
+</body>
+</html>

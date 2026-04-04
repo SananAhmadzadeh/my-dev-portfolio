@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SignalR Online Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.10/signalr.min.js"></script>
+</head>
+<body>
+
+    <h3>SignalR Minimal Test</h3>
+
+    <input id="username" placeholder="Username" />
+    <input id="password" type="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        let token = null;
+        let connection = null;
+
+        function parseJwt(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = atob(base64Url);
+            return JSON.parse(base64);
+        }
+
+        async function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const res = await fetch("https://localhost:44389/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ userName: username, password: password })
+                });
+
+                if (!res.ok) {
+                    console.log("Login failed:", res.status);
+                    return;
+                }
+
+                const data = await res.json();
+                token = data.data.token; 
+                console.log("Login success, token:", token);
+
+                await startSignalR();
+            } catch (err) {
+                console.error("Login error:", err);
+            }
+        }
+
+        async function startSignalR() {
+            try {
+                connection = new signalR.HubConnectionBuilder()
+                    .withUrl("https://localhost:44389/onlinehub", { accessTokenFactory: () => token }) 
+                    .withAutomaticReconnect()
+                    .build();
+
+                connection.on("UserOnline", (userId) => console.log("UserOnline:", userId));
+                connection.on("UserOffline", (userId, lastSeen) => console.log("UserOffline:", userId, lastSeen));
+
+                connection.onreconnecting(() => console.log("Reconnecting..."));
+                connection.onreconnected(() => console.log("Reconnected"));
+
+                await connection.start();
+                console.log("SignalR connected");
+            } catch (err) {
+                console.error("SignalR connection error:", err);
+            }
+        }
+
+        async function logout() {
+            try {
+                if (connection) {
+                    await connection.stop();
+                    console.log("SignalR disconnected");
+                }
+                token = null;
+                console.log("Logged out");
+            } catch (err) {
+                console.error("Logout error:", err);
+            }
+        }
+
+        window.addEventListener("pagehide", () => {
+            if (connection) connection.stop();
+        });
+    </script>
+
+</body>
+</html>

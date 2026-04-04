@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".env" />
+  </Folder>
+  <Project Path="Business/Business.csproj" />
+  <Project Path="Core/Core.csproj" />
+  <Project Path="DataAccess/DataAccess.csproj" />
+  <Project Path="Entities/Entities.csproj" />
+  <Project Path="WEBAPI/WEBAPI.csproj" />
+</Solution>
