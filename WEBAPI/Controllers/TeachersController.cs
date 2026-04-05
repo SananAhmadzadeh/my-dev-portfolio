@@ -1,7 +1,6 @@
 ﻿using Business.Services.Abstract;
 using Core.Entities.Concrete.Auth;
 using Core.Utilities.Result.Concrete;
-using Entities.DTOs.AboutDTOs;
 using Entities.DTOs.SetPasswordDTOs;
 using Entities.DTOs.TeacherDTOs;
 using Microsoft.AspNetCore.Http;
@@ -76,7 +75,7 @@ namespace WEBAPI.Controllers
         }
 
         [HttpPost("set-password")]
-        public async Task<IActionResult> SetPassword(SetPasswordDto dto)
+        public async Task<IActionResult> SetPassword([FromForm] SetPasswordDto dto)
         {
             var result = await _passwordResetService.SetPassword(dto);
 
@@ -85,6 +84,7 @@ namespace WEBAPI.Controllers
 
             return Ok(result.Message);
         }
+
 
     }
 }

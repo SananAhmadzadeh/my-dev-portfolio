@@ -114,18 +114,18 @@ Education Team"
         {
             var teachers = await _unitOfWork.TeacherRepository.GetAllAsync(null, "AppUser");
             if (teachers == null || !teachers.Any())
-                return new ErrorDataResult<List<GetAllTeachersDto>>("No teachers found");
+                return new ErrorDataResult<List<GetAllTeachersDto>>("List edilə bilmədi");
             var teacherDtos = _mapper.Map<List<GetAllTeachersDto>>(teachers);
-            return new SuccessDataResult<List<GetAllTeachersDto>>(teacherDtos);
+            return new SuccessDataResult<List<GetAllTeachersDto>>(teacherDtos, "List edildi");
         }
         public async Task<IDataResult<GetTeacherDto>> GetTeacherByIdAsync(Guid id)
         {
             var teacher = await _unitOfWork.TeacherRepository
                 .GetAsync(t => t.Id == id, "AppUser");
             if (teacher == null)
-                return new ErrorDataResult<GetTeacherDto>("melumat tapilmadi");
+                return new ErrorDataResult<GetTeacherDto>($"{id} -li Müəllimin məlumatı tapılmadı yaxud database-də belə bir şəxs yoxdur!");
             var teacherDto = _mapper.Map<GetTeacherDto>(teacher);
-            return new SuccessDataResult<GetTeacherDto>(teacherDto, "melumat getirildi");
+            return new SuccessDataResult<GetTeacherDto>(teacherDto, $"{id} -li Müəllimin məlumatı");
         }
 
 
@@ -155,15 +155,6 @@ Education Team"
 
             return new SuccessResult("Teacher updated");
         }
-
-        //if(updateTeacherDto.ImageFile != null)
-        //{
-        //    if (!string.IsNullOrEmpty(existsTeacher.ImageUrl))
-        //    {
-        //        _fileService.Delete(existsTeacher.ImageUrl);
-        //    }
-        //    existsTeacher.ImageUrl = await _fileService.UploadAsync(updateTeacherDto.ImageFile, "teachers");
-        //}
     }
 }
 
