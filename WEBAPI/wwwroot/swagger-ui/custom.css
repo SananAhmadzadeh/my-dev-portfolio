@@ -1,0 +1,110 @@
+﻿body, .swagger-ui, .swagger-ui .info, .swagger-ui .scheme-container {
+    background-color: #0d1117 !important;
+}
+
+    /* Enli Topbar Zolağı */
+    .swagger-ui .topbar {
+        padding: 40px 0 !important;
+        background-color: #0d1117 !important;
+        border-bottom: 2px solid #30363d !important;
+        height: auto !important;
+    }
+
+    /* Controller Başlıqları */
+    .swagger-ui .opblock-tag {
+        color: #58a6ff !important;
+        font-size: 22px !important;
+        font-weight: bold !important;
+        text-shadow: 0 0 8px rgba(88, 166, 255, 0.4);
+        border-bottom: 1px solid #30363d !important;
+    }
+
+    /* URL-lər (Path) */
+    .swagger-ui .opblock .opblock-summary-path {
+        color: #ffffff !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 16px !important;
+        opacity: 1 !important;
+    }
+
+    /* Endpoint Blokları və Neon Çərçivələr */
+    .swagger-ui .opblock {
+        background: rgba(22, 27, 34, 0.8) !important;
+        border-width: 2px !important;
+    }
+
+        .swagger-ui .opblock.opblock-get {
+            border-color: #388bfd !important;
+        }
+
+        .swagger-ui .opblock.opblock-post {
+            border-color: #3fb950 !important;
+        }
+
+    /* Filter inputu */
+    .swagger-ui .filter-container input {
+        background: #161b22 !important;
+        color: white !important;
+        border: 1px solid #30363d !important;
+        padding: 10px !important;
+    }
+
+/* Hover Effektləri */
+.styled-btn:hover div, .styled-btn-gh:hover div {
+    transform: translateY(-2px);
+    transition: 0.3s;
+}
+
+.styled-btn:hover div {
+    box-shadow: 0 6px 20px rgba(10,102,194,0.6) !important;
+}
+
+.styled-btn-gh:hover div {
+    box-shadow: 0 6px 20px rgba(255,255,255,0.2) !important;
+}
+/* Select bölməsini genişləndirmək və hizada saxlamaq */
+.swagger-ui .topbar .download-url-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    min-width: 350px !important; /* Blokun ümumi enini artırırıq */
+    margin-right: 20px !important;
+}
+
+    /* "Select a definition" yazısı */
+    .swagger-ui .topbar .download-url-wrapper .select-label {
+        color: #f0f6fc !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        white-space: nowrap !important; /* Yazının iki sətrə bölünməsini önləyir */
+    }
+
+/* Select (Input) qutusunu "dartıb" uzatmaq */
+.swagger-ui select {
+    flex: 1 !important; /* Qalan boşluğu tam doldurur */
+    background-color: #161b22 !important;
+    color: #58a6ff !important;
+    border: 1px solid #30363d !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease;
+}
+
+    /* Hover effekti - Senior touch */
+    .swagger-ui select:hover {
+        border-color: #58a6ff !important;
+        background-color: #1c2128 !important;
+        box-shadow: 0 0 8px rgba(88, 166, 255, 0.2) !important;
+    }
+/* Description daxilindəki artıq mətnlərin düymələri aşağı itələməməsi üçün */
+.swagger-ui .info .description br {
+    display: none !important;
+}
+
+#social-btns-container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+}
