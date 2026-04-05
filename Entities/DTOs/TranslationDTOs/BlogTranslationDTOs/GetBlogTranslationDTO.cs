@@ -1,11 +1,11 @@
 ﻿using Core.Entities.Abstract;
 
-namespace Entities.TranslationDTOs.CourseTranslationDTOs
+namespace Entities.DTOs.TranslationDTOs.BlogTranslationDTOs
 {
-    public class GetCourseTranslationDTO : IDto
+    public class GetBlogTranslationDTO : IDto
     {
         public string LanguageCode { get; set; } = null!;
-        public string Name { get; set; } = null!;
+        public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string? Slug { get; set; }
     }

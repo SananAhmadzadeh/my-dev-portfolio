@@ -1,5 +1,6 @@
 ﻿using Business.Services.Abstract;
 using Entities.DTOs.BlogDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WEBAPI.Controllers
@@ -20,12 +21,8 @@ namespace WEBAPI.Controllers
         public async Task<IActionResult> GetAllBlogs()
         {
             var result = await _service.GetAllBlogsAsync();
-
             if (result.Success)
-            {
                 return Ok(result);
-            }
-
             return NotFound(result);
         }
 
@@ -50,14 +47,14 @@ namespace WEBAPI.Controllers
             return NotFound(result);
         }
 
-        //[Authorize(Roles = "Student")]
+        //[Authorize(Roles = "SuperaAdmin, Admin, Teacher")]
         //[HasPermission("BLOG.DELETE")]
         [HttpDelete]
         public async Task<IActionResult> DeleteBlog(Guid id)
         {
             var result = await _service.DeleteBlogAsync(id);
             if (result.Success)
-                return NoContent();
+                return StatusCode(204, result);
             return NotFound(result);
         }
 

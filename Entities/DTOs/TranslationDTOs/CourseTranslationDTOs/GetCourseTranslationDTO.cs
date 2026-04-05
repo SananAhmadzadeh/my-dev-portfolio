@@ -1,8 +1,8 @@
 ﻿using Core.Entities.Abstract;
 
-namespace Entities.TranslationDTOs.CourseTranslationDTOs
+namespace Entities.DTOs.TranslationDTOs.CourseTranslationDTOs
 {
-    public class UpdateCourseTranslationDTO : IDto
+    public class GetCourseTranslationDTO : IDto
     {
         public string LanguageCode { get; set; } = null!;
         public string Name { get; set; } = null!;

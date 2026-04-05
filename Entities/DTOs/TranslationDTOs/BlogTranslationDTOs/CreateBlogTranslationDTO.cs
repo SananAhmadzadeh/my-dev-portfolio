@@ -1,8 +1,8 @@
 ﻿using Core.Entities.Abstract;
 
-namespace Entities.TranslationDTOs.AboutTranslationDTOs
+namespace Entities.DTOs.TranslationDTOs.BlogTranslationDTOs
 {
-    public class CreateAboutTranslationDTO : IDto
+    public class CreateBlogTranslationDTO : IDto
     {
         public string LanguageCode { get; set; } = null!;
         public string Title { get; set; } = null!;

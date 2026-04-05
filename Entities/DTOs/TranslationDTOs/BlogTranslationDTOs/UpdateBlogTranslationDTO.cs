@@ -1,6 +1,6 @@
 ﻿using Core.Entities.Abstract;
 
-namespace Entities.TranslationDTOs.BlogTranslationDTOs
+namespace Entities.DTOs.TranslationDTOs.BlogTranslationDTOs
 {
     public class UpdateBlogTranslationDTO : IDto
     {

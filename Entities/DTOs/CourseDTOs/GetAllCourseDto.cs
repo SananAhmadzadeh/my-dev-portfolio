@@ -1,7 +1,7 @@
 ﻿using Core.Entities.Abstract;
 using Entities.Concrete;
 using Entities.DTOs.LessonDTOs;
-using Entities.TranslationDTOs.CourseTranslationDTOs;
+//using Entities.TranslationDTOs.CourseTranslationDTOs;
 
 namespace Entities.DTOs.CourseDTOs
 {

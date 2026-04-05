@@ -6,9 +6,7 @@ using Core.Utilities.Result.Concrete;
 using DataAccess.UnitOfWork.Abstract;
 using Entities.Concrete;
 using Entities.DTOs.CourseDTOs;
-//using Entities.TranslationConcrete;
-using Microsoft.AspNetCore.Http;
-using System.Text.Json;
+
 
 namespace Business.Services.Concrete
 {
@@ -41,47 +39,7 @@ namespace Business.Services.Concrete
                 return new ErrorResult("Kurs əlavə olunmadı");
 
             return new SuccessResult("Kurs əlavə olundu");
-
-            //if (dto == null)
-            //    return new ErrorResult("Məlumat tapılmadı");
-
-            //var course = new Course
-            //{
-            //    CreatedAt = DateTime.UtcNow,
-            //    Translations = new List<CourseTranslation>()
-            //};
-
-            //if (dto.ImageUrl != null)
-            //{
-            //    var uploadedPath = await _fileService.UploadAsync(dto.ImageUrl, "Course");
-            //    course.ImageUrl = uploadedPath;
-            //}
-
-
-            //if (dto.Translations != null && dto.Translations.Any())
-            //{
-            //    foreach (var item in dto.Translations)
-            //    {
-            //        course.Translations.Add(new CourseTranslation
-            //        {
-            //            LanguageCode = item.LanguageCode,
-            //            Name = item.Name,
-            //            Description = item.Description
-            //        });
-            //    }
-            //}
-            //else
-            //{
-            //    return new ErrorResult("Ən az bir ədəd translation olmalıdır");
-            //}
-
-            //await _unitOfWork.CourseRepository.AddAsync(course);
-            //var result = await _unitOfWork.SaveAsync();
-
-            //if (result == 0)
-            //    return new ErrorResult("Kurs əlavə olunmadı");
-
-            //return new SuccessResult("Kurs əlavə olundu");
+            
         }
         public async Task<Core.Utilities.Result.Abstract.IResult> Delete(Guid id)
         {
@@ -121,55 +79,21 @@ namespace Business.Services.Concrete
             var result = await _unitOfWork.CourseRepository.GetAsync(c => c.Id == id, "Lessons");
             if (result is null)
             {
-                return new ErrorDataResult<GetCourseDto>(null!, $"{id}-li kurs tapıldı");
+                return new ErrorDataResult<GetCourseDto>(null!, $"{id}-li kurs tapılmadı");
             }
 
             var dto = _mapper.Map<GetCourseDto>(result);
-            return new SuccessDataResult<GetCourseDto>(dto, $"{id}-li kurs tapılmadı");
+            return new SuccessDataResult<GetCourseDto>(dto, $"{id}-li kurs tapıldı");
         }
 
         public async Task<Core.Utilities.Result.Abstract.IResult> UpdateCourseAsync(Guid id, UpdateCourseDto updateCourseDto)
         {
-            //var existsCourse = await _unitOfWork.CourseRepository.GetAsync(c => c.Id == id
-            //);
-
-            //if (existsCourse == null)
-            //    return new ErrorResult("Tapılmaıdı");
-
-            //if (updateCourseDTO.Translations != null)
-            //{
-            //    var langCodes = updateCourseDTO.Translations.Select(t => t.LanguageCode).ToList();
-
-            //    foreach (var oldTrans in existsCourse.Translations.ToList())
-            //    {
-            //        if (!langCodes.Contains(oldTrans.LanguageCode))
-            //        {
-            //            existsCourse.Translations.Remove(oldTrans);
-            //        }
-            //    }
-
-            //    foreach (var transDto in updateCourseDTO.Translations)
-            //    {
-            //        var translation = existsCourse.Translations.FirstOrDefault(t => t.LanguageCode == transDto.LanguageCode);
-
-            //        if (translation != null)
-            //        {
-            //            var newTranslation = _mapper.Map<CourseTranslation>(transDto);
-            //            newTranslation.CreatedAt = DateTime.UtcNow;
-            //            existsCourse.Translations.Add(newTranslation);
-            //        }
-            //        else
-            //        {
-            //            _mapper.Map(transDto, translation);
-            //            translation.UpdatedAt = DateTime.UtcNow;
-            //        }
-            //    }
-            //}
-
             var existsCourse = await _unitOfWork.CourseRepository.GetAsync(c => c.Id == id);
 
             if (existsCourse == null)
                 return new ErrorResult("Tapılmaıdı");
+
+            _mapper.Map(updateCourseDto, existsCourse);
 
             existsCourse.UpdatedAt = DateTime.UtcNow;
 

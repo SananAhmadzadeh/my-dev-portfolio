@@ -53,7 +53,7 @@ namespace WEBAPI.Controllers
             var result = await _courseService.Delete(courseId);
             if (result.Success)
             {
-                return NoContent();
+                return StatusCode(204, result);
             }
             return BadRequest(result);
         }

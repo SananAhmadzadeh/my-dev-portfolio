@@ -1,6 +1,6 @@
 ﻿using Core.Entities.Abstract;
 
-namespace Entities.TranslationDTOs.CourseTranslationDTOs
+namespace Entities.DTOs.TranslationDTOs.CourseTranslationDTOs
 {
     public class CreateCourseTranslationDTO : IDto
     {
