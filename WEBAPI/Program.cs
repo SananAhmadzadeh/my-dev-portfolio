@@ -169,9 +169,9 @@ var app = builder.Build();
 
 var supportedCultures = new[] { "az", "en", "ru" };
 var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture("az") 
-    .AddSupportedCultures(supportedCultures) 
-    .AddSupportedUICultures(supportedCultures); 
+    .SetDefaultCulture("az")
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
 
 app.UseRequestLocalization(localizationOptions);
 
@@ -195,7 +195,7 @@ app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(pdfPath),
     RequestPath = "/PDF"
-}); 
+});
 
 app.UseDefaultFiles();
 
@@ -203,31 +203,27 @@ app.UseStaticFiles();
 
 app.UseSwagger();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
+    c.RoutePrefix = string.Empty;
 
-    app.UseSwaggerUI(c =>
-    {
-        c.RoutePrefix = string.Empty;
+    c.SwaggerEndpoint("/swagger/All/swagger.json", "All APIs");
+    c.SwaggerEndpoint("/swagger/Teacher/swagger.json", "Teacher APIs");
+    c.SwaggerEndpoint("/swagger/Student/swagger.json", "Student APIs");
+    c.SwaggerEndpoint("/swagger/SuperAdmin/swagger.json", "SuperAdmin APIs");
 
-        c.SwaggerEndpoint("/swagger/All/swagger.json", "All APIs");
-        c.SwaggerEndpoint("/swagger/Teacher/swagger.json", "Teacher APIs");
-        c.SwaggerEndpoint("/swagger/Student/swagger.json", "Student APIs");
-        c.SwaggerEndpoint("/swagger/SuperAdmin/swagger.json", "SuperAdmin APIs");
+    c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+    c.DefaultModelsExpandDepth(-1);
+    c.DisplayRequestDuration();
+    c.EnableDeepLinking();
+    c.EnableFilter();
+    c.EnablePersistAuthorization();
 
-        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
-        c.DefaultModelsExpandDepth(-1);
-        c.DisplayRequestDuration();
-        c.EnableDeepLinking();
-        c.EnableFilter();
-        c.EnablePersistAuthorization();
-
-        c.InjectStylesheet("/swagger-ui/custom.css");
-        c.InjectJavascript("/swagger-ui/custom.js");
-    });
-}
-
+    c.InjectStylesheet("/swagger-ui/custom.css");
+    c.InjectJavascript("/swagger-ui/custom.js");
+});
 
 app.UseHttpsRedirection();
 
