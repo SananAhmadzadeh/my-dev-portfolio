@@ -17,7 +17,7 @@ namespace WEBAPI.Controllers
             _appLogService = appLogService;
         }
 
-        [Authorize(Roles = "SuperAdmin")]
+        //[Authorize(Roles = "SuperAdmin")]
         [HttpGet]
         public async Task<IActionResult> GetAllAppLogs()
         {
